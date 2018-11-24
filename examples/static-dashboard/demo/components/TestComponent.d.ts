@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare const TestComponent: () => JSX.Element;
+export declare const TestComponent: () => Promise<JSX.Element>;

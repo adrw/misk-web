@@ -1,4 +1,5 @@
 import {
+  get,
   Navbar,
   OfflineComponent,
   ResponsiveContainer,
@@ -18,12 +19,25 @@ const TabContainer = styled(ResponsiveContainer)`
   padding-left: 5px;
 `
 
-class LoaderContainer extends React.Component<ILoaderProps> {
+class LoaderContainer extends React.Component<ILoaderProps, { data: any }> {
+  state = {
+    data: null as any
+  }
   render() {
+    // add JSON files for this and have real web requests that ping the static JSON on github with fallback to static to show web request loading
     const adminDashboardTabs = mockAdminDashboardTabs
+    // add JSON files for this and have real web requests that ping the static JSON on github with fallback to static to show web request loading
     const serviceMetadata = mockServiceMetadata
     const error: any = null
     const unavailableEndpointUrls: string = ""
+    // find all ways to simplify this, move it out to the palette tab
+    // create our own test json data so it's not just blog posts (don't use pepsi to model nukes)
+    const response = get("https://jsonplaceholder.typicode.com/posts/")
+    try {
+      response.then(resp => this.setState({ data: resp.data }))
+    } catch (error) {
+      console.log(error)
+    }
     if (adminDashboardTabs && serviceMetadata) {
       return (
         <span>
@@ -37,6 +51,7 @@ class LoaderContainer extends React.Component<ILoaderProps> {
           />
           <TabContainer>
             <TabLoaderComponent tabs={adminDashboardTabs} />
+            <span>{this.state.data ? this.state.data.length : 0}</span>
           </TabContainer>
         </span>
       )

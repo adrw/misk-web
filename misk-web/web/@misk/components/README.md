@@ -1,6 +1,7 @@
 ## Misk Components
 
-![](https://raw.githubusercontent.com/square/misk/master/misk.png)
+<img src="https://raw.githubusercontent.com/square/misk/master/misk.png" width="300">
+
 This package provides shared, styled React components across Misk tab repos. The top of each component/container file contains a usage example.
 
 ## Getting Started

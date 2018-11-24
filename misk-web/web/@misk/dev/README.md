@@ -1,6 +1,7 @@
 ## Misk Dev
 
-![](https://raw.githubusercontent.com/square/misk/master/misk.png)
+<img src="https://raw.githubusercontent.com/square/misk/master/misk.png" width="300">
+
 This package provides shared devDependencies and compiler options used to provide a common development environment across Misk tab repos. For Typescript linting, see [@misk/tslint](https://www.npmjs.com/package/@misk/tslint).
 
 ## Getting Started

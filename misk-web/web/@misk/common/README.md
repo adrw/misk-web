@@ -1,6 +1,7 @@
 ## Misk Common
 
-![](https://raw.githubusercontent.com/square/misk/master/misk.png)
+<img src="https://raw.githubusercontent.com/square/misk/master/misk.png" width="300">
+
 This package provides shared libraries, externals, and styles across Misk tab repos.
 
 ## Getting Started

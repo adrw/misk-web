@@ -1,6 +1,7 @@
 ## Misk TsLint
 
-![](https://raw.githubusercontent.com/square/misk/master/misk.png)
+<img src="https://raw.githubusercontent.com/square/misk/master/misk.png" width="300">
+
 This package provides shared TsLint linting across Misk tab repos.
 
 ## Getting Started
