@@ -78,6 +78,35 @@ task web(type: Exec) {
 
   def generateDockerRunCommand = {
     projectPath, path, cmd, daemon = "-d", image = "squareup/misk-web" ->
+
+      def currentHash = ""
+      try {
+        currentHash = new File("${projectPath}/web${path}/.hash").text
+      } catch (error) {
+        println error
+      }
+      def hashDirMac = "cd ${projectPath}/web${path}/ && tar --exclude='cachedUrls' --exclude='lib' --exclude='node_modules' --exclude='.DS_Store' --exclude='.hash' --exclude='yarn.lock' -cf - ./ | md5 2>&1 | tee ${projectPath}/web${path}/.hash"
+
+      println hashDirMac
+
+
+      // def zipDir = "cd ${projectPath}/web${path}/ && tar --exclude='cachedUrls' --exclude='lib' --exclude='node_modules' --exclude='.DS_Store' --exclude='.hash' --exclude='yarn.lock' -cf - . > ${projectPath}${path}.tgz"
+
+      println "start"
+      exec {
+        commandLine 'sh', '-c', hashDirMac
+
+      }
+      println "next"
+
+      def newHash = new File("${projectPath}/web${path}/.hash").text
+
+
+      println "----------------aaa---------------"
+      println currentHash
+      println newHash
+
+
       try {
         def containerName = "${generateDockerContainerName(path)}"
         def port = ""
