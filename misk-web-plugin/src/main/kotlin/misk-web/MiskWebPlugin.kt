@@ -12,7 +12,7 @@ import org.gradle.api.tasks.Copy
 import org.gradle.kotlin.dsl.*
 
 open class MiskWebPlugin : Plugin<Project> {
-  fun String.runCommand(
+  fun String.execute(
     workingDir: File = File("."),
     timeoutAmount: Long = 30,
     timeoutUnit: TimeUnit = TimeUnit.SECONDS
@@ -146,14 +146,14 @@ open class MiskWebPlugin : Plugin<Project> {
             val dockerName = dockerBuildContainerName(it)
             val dockerCmd = dockerBuildContainer(project, it, mountPath = "/web", name = dockerName)
             println(dockerInformation(dockerName, dockerCmd))
-            println(dockerCmd.runCommand())
+            println(dockerCmd.execute())
           }
           val tabPaths = recursiveFind(project, "/web/tabs/", 3)
           tabPaths.forEach {
             val dockerName = dockerBuildContainerName(it)
             val dockerCmd = dockerBuildContainer(project, it, name = dockerName)
             println(dockerInformation(dockerName, dockerCmd))
-            println(dockerCmd.runCommand())
+            println(dockerCmd.execute())
           }
         }
 
@@ -163,7 +163,7 @@ open class MiskWebPlugin : Plugin<Project> {
             val dockerName = dockerBuildContainerName(it)
             val dockerCmd = dockerBuildContainer(project, it, name = dockerName, runtime = "/bin/misk-web -n -d")
             println(dockerInformation(dockerName, dockerCmd))
-            println(dockerCmd.runCommand())
+            println(dockerCmd.execute())
           }
         }
       }

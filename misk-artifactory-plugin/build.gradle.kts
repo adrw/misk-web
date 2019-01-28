@@ -1,17 +1,16 @@
 plugins {
-    id("misk-artifactory-plugin") version "0.0.1"
     `kotlin-dsl`
     `maven-publish`
 }
 
-group = "misk-web-plugin"
-version = "0.1.3"
+group = "misk-artifactory-plugin"
+version = "0.0.1"
 
 gradlePlugin {
     plugins {
         register("MiskArtifactoryPlugin") {
-            id = "misk-web-plugin"
-            implementationClass = "misk-web-plugin.MiskArtifactoryPlugin"
+            id = "misk-artifactory-plugin"
+            implementationClass = "misk-artifactory-plugin.MiskArtifactoryPlugin"
         }
     }
 }
@@ -20,6 +19,10 @@ publishing {
     repositories {
         maven(url = "build/repository")
     }
+}
+
+tasks {
+
 }
 
 repositories {

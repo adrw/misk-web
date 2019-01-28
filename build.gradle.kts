@@ -1,7 +1,7 @@
 ext.set("isCi", "true" == System.getenv("CI"))
 
 tasks {
-  val plugin by registering(GradleBuild::class) {
+  val miskWebPlugin by registering(GradleBuild::class) {
     dir = file("misk-web-plugin")
     tasks = listOf("publish")
   }
@@ -12,7 +12,7 @@ tasks {
   }
 
   jar {
-    dependsOn(plugin)
+    dependsOn(miskWebPlugin)
   }
 
   val example by registering(GradleBuild::class) {
@@ -21,7 +21,7 @@ tasks {
   }
 
   example {
-    dependsOn(plugin)
+    dependsOn(miskWebPlugin)
   }
 
   val test by registering(GradleBuild::class) {
@@ -30,6 +30,33 @@ tasks {
   }
 
   test {
-    dependsOn(plugin)
+    dependsOn(miskWebPlugin)
+  }
+
+  val miskArtifactoryPlugin by registering(GradleBuild::class) {
+    dir = file("misk-artifactory-plugin")
+    tasks = listOf("publish")
+  }
+
+  val uploadMiskWeb by registering(GradleBuild::class) {
+    dir = file("misk-web")
+    tasks = listOf("jar", "uploadArchives")
+  }
+
+  val uploadMiskWebPlugin by registering(GradleBuild::class) {
+    dir = file("misk-web-plugin")
+    tasks = listOf("uploadArchives")
+  }
+
+  uploadMiskWeb {
+    dependsOn(miskArtifactoryPlugin)
+  }
+
+  uploadMiskWebPlugin {
+    dependsOn(miskArtifactoryPlugin)
+  }
+
+  register("uploadArchives") {
+    dependsOn(listOf(uploadMiskWeb, uploadMiskWebPlugin))
   }
 }
