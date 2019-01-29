@@ -8,7 +8,6 @@ import java.util.UUID
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.tasks.Copy
 import org.gradle.kotlin.dsl.*
 
 open class MiskWebPlugin : Plugin<Project> {
@@ -74,7 +73,7 @@ open class MiskWebPlugin : Plugin<Project> {
   }
 
   fun hashDir(project: Project, relPath: String) {
-    val uname = "uname".runCommand()
+    val uname = "uname".execute()
     println(uname)
     var hashBinary = if ("${uname}".contains("Darwin")) {
       "md5"
@@ -86,7 +85,7 @@ open class MiskWebPlugin : Plugin<Project> {
         "tar --exclude=\"cachedUrls\" --exclude=\"lib\" --exclude=\"node_modules\" --exclude=\".DS_Store\" --exclude=\".hash\" --exclude=\"yarn.lock\" -cf - ${project.projectDir}${relPath} | ${hashBinary} 2>&1"
     println(hashCmd)
     println("\n\n")
-    val hash = hashCmd.runCommand()
+    val hash = hashCmd.execute()
     println("\n\n${hash}")
   }
 
