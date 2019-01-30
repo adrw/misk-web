@@ -1,7 +1,7 @@
 plugins {
   `kotlin-dsl`
   `maven-publish`
-  id("misk-artifactory-plugin") version "0.0.1"
+//  id("cash-upload-plugin") version "0.0.1"
 }
 
 group = "misk-web-plugin"
@@ -23,4 +23,8 @@ publishing {
 
 repositories {
   jcenter()
+}
+
+if (rootProject.file("../hooks.gradle.kts").exists()) {
+  apply(from = rootProject.file("../hooks.gradle.kts"))
 }

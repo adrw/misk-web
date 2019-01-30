@@ -33,8 +33,8 @@ tasks {
     dependsOn(miskWebPlugin)
   }
 
-  val miskArtifactoryPlugin by registering(GradleBuild::class) {
-    dir = file("misk-artifactory-plugin")
+  val cashUploadPlugin by registering(GradleBuild::class) {
+    dir = file("cash-upload-plugin")
     tasks = listOf("publish")
   }
 
@@ -49,11 +49,11 @@ tasks {
   }
 
   uploadMiskWeb {
-    dependsOn(miskArtifactoryPlugin)
+    dependsOn(cashUploadPlugin)
   }
 
   uploadMiskWebPlugin {
-    dependsOn(miskArtifactoryPlugin)
+    dependsOn(cashUploadPlugin)
   }
 
   register("uploadArchives") {

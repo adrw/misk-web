@@ -2,7 +2,7 @@ plugins {
   `kotlin-dsl`
   `maven-publish`
   id("misk-web-plugin") version "0.1.3"
-  id("misk-artifactory-plugin") version "0.0.1"
+  id("cash-upload-plugin") version "0.0.1"
 }
 
 sourceSets {
