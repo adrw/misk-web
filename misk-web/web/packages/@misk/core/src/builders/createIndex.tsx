@@ -8,7 +8,7 @@ import {
 import { createBrowserHistory, History } from "history"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { AppContainer } from "react-hot-loader"
+import { hot } from "react-hot-loader"
 import { Provider } from "react-redux"
 import {
   AnyAction,
@@ -18,7 +18,6 @@ import {
   Reducer
 } from "redux"
 import createSagaMiddleware from "redux-saga"
-import { AllEffect } from "redux-saga/effects"
 
 export const createIndex = (
   tabSlug: string,
@@ -30,7 +29,7 @@ export const createIndex = (
       { router: Reducer<RouterState, LocationChangeAction> } & any,
       AnyAction
     >
-    rootSaga: () => IterableIterator<AllEffect>
+    rootSaga: () => IterableIterator<any>
   }
 ) => {
   const Window = window as IWindow
@@ -51,29 +50,12 @@ export const createIndex = (
    */
   sagaMiddleware.run(Ducks.rootSaga)
 
-  const render = () => {
-    ReactDOM.render(
-      <AppContainer>
-        <Provider store={store}>
-          <App history={history} />
-        </Provider>
-      </AppContainer>,
-      document.getElementById(tabSlug)
-    )
-  }
-
-  render()
-
-  // Hot reloading
-  if (module.hot) {
-    // Reload components
-    module.hot.accept(App as any, () => {
-      render()
-    })
-
-    // Reload reducers
-    module.hot.accept(Ducks as any, () => {
-      store.replaceReducer(Ducks.rootReducer(history))
-    })
-  }
+  ReactDOM.render(
+    hot(module)(
+      <Provider store={store}>
+        <App history={history} />
+      </Provider>
+    ),
+    document.getElementById(tabSlug)
+  )
 }

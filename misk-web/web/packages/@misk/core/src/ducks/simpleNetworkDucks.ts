@@ -7,7 +7,7 @@ import {
 import axios, { AxiosRequestConfig } from "axios"
 import { fromJS } from "immutable"
 import createCachedSelector from "re-reselect"
-import { all, AllEffect, call, put, takeEvery } from "redux-saga/effects"
+import { all, call, put, takeEvery } from "redux-saga/effects"
 import { createSelector, OutputSelector, ParametricSelector } from "reselect"
 
 /**
@@ -301,7 +301,7 @@ function* handlePut(
   }
 }
 
-export function* watchSimpleNetworkSagas(): IterableIterator<AllEffect> {
+export function* watchSimpleNetworkSagas(): IterableIterator<any> {
   yield all([
     takeEvery(SIMPLENETWORK.DELETE, handleDelete),
     takeEvery(SIMPLENETWORK.GET, handleGet),

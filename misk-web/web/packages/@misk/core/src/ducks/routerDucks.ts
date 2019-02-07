@@ -6,7 +6,7 @@ import {
 } from "@misk/common"
 import axios, { AxiosRequestConfig } from "axios"
 import { fromJS } from "immutable"
-import { all, AllEffect, call, put, takeEvery } from "redux-saga/effects"
+import { all, call, put, takeEvery } from "redux-saga/effects"
 
 /**
  *   TODO: ROUTER SAGA
@@ -277,7 +277,7 @@ function* handlePut(
   }
 }
 
-export function* watchRouterSagas(): IterableIterator<AllEffect> {
+export function* watchRouterSagas(): IterableIterator<any> {
   yield all([
     takeEvery(ROUTER.DELETE, handleDelete),
     takeEvery(ROUTER.GET, handleGet),
