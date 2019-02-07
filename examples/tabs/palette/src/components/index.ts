@@ -1,2 +1,3 @@
+import SampleNetworkComponent from "./SampleNetworkComponent"
 import SampleTableComponent from "./SampleTableComponent"
-export { SampleTableComponent }
+export { SampleNetworkComponent, SampleTableComponent }

@@ -1,7 +1,7 @@
 import { response } from "@misk/core"
 import * as React from "react"
 import { connect } from "react-redux"
-import { SampleTableComponent } from "../components"
+import { SampleTableComponent, SampleNetworkComponent } from "../components"
 import { IDispatchProps, IState, rootDispatcher, rootSelectors } from "../ducks"
 
 interface IContainerProps extends IState, IDispatchProps {}
@@ -19,6 +19,11 @@ class TabContainer extends React.Component<IContainerProps, IState> {
     return (
       <div>
         <SampleTableComponent data={response(simpleNetwork, "cars")} rows={5} />
+        <SampleNetworkComponent
+          handleInput={(event: React.FormEvent<HTMLInputElement>) =>
+            console.log(event.target)
+          }
+        />
       </div>
     )
   }

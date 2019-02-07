@@ -25,16 +25,29 @@ export enum PALETTE {
  * Object of functions that dispatch Actions with standard defaults and any required passed in input
  * dispatch Object is used within containers to initiate any saga provided functionality
  */
-export const dispatchPalette = {
-  dinosaur: () =>
+export interface IDispatchPalette {
+  paletteDinosaur: () => IAction<
+    PALETTE.DINOSAUR,
+    {
+      error: any
+      loading: boolean
+      success: boolean
+    }
+  >
+  paletteFailure: (error: any) => IAction<PALETTE.FAILURE, any>
+  paletteSuccess: (data: any) => IAction<PALETTE.SUCCESS, any>
+}
+
+const dispatch: IDispatchPalette = {
+  paletteDinosaur: () =>
     createAction(PALETTE.DINOSAUR, {
       error: null,
       loading: true,
       success: false
     }),
-  failure: (error: any) =>
+  paletteFailure: (error: any) =>
     createAction(PALETTE.FAILURE, { ...error, loading: false, success: false }),
-  success: (data: any) =>
+  paletteSuccess: (data: any) =>
     createAction(PALETTE.SUCCESS, {
       ...data,
       error: null,
@@ -42,6 +55,7 @@ export const dispatchPalette = {
       success: true
     })
 }
+export const dispatchPalette = dispatch
 
 /**
  * Sagas are generating functions that consume actions and
@@ -62,9 +76,9 @@ function* handleDinosaur() {
       axios.get,
       "https://jsonplaceholder.typicode.com/posts/"
     )
-    yield put(dispatchPalette.success({ data }))
+    yield put(dispatch.paletteSuccess({ data }))
   } catch (e) {
-    yield put(dispatchPalette.failure({ error: { ...e } }))
+    yield put(dispatch.paletteFailure({ error: { ...e } }))
   }
 }
 

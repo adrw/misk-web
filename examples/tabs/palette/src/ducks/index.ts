@@ -18,8 +18,10 @@ import { all, AllEffect, fork } from "redux-saga/effects"
 import {
   default as PaletteReducer,
   IPaletteState,
+  IDispatchPalette,
   paletteSelector,
-  watchPaletteSagas
+  watchPaletteSagas,
+  dispatchPalette
 } from "./palette"
 export * from "./palette"
 
@@ -35,10 +37,14 @@ export interface IState {
 /**
  * Dispatcher
  */
-export interface IDispatchProps extends IDispatchSimpleNetwork {}
+
+export interface IDispatchProps
+  extends IDispatchSimpleNetwork,
+    IDispatchPalette {}
 
 export const rootDispatcher: IDispatchProps = {
-  ...dispatchSimpleNetwork
+  ...dispatchSimpleNetwork,
+  ...dispatchPalette
 }
 
 /**
