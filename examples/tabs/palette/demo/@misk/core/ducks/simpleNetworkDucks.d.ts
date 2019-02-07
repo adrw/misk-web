@@ -6,6 +6,7 @@ export declare enum SIMPLENETWORK {
     DELETE = "SIMPLENETWORK_DELETE",
     FAILURE = "SIMPLENETWORK_FAILURE",
     GET = "SIMPLENETWORK_GET",
+    HEAD = "SIMPLENETWORK_HEAD",
     PATCH = "SIMPLENETWORK_PATCH",
     POST = "SIMPLENETWORK_POST",
     PUT = "SIMPLENETWORK_PUT",
@@ -23,6 +24,7 @@ export interface IDispatchSimpleNetwork {
     delete: (tag: string, url: string, requestConfig?: AxiosRequestConfig) => IAction<SIMPLENETWORK.DELETE, ISimpleNetworkPayload>;
     failure: (error: any) => IAction<SIMPLENETWORK.FAILURE, ISimpleNetworkPayload>;
     get: (tag: string, url: string, requestConfig?: AxiosRequestConfig) => IAction<SIMPLENETWORK.GET, ISimpleNetworkPayload>;
+    head: (tag: string, url: string, requestConfig?: AxiosRequestConfig) => IAction<SIMPLENETWORK.HEAD, ISimpleNetworkPayload>;
     patch: (tag: string, url: string, data: any, requestConfig?: AxiosRequestConfig) => IAction<SIMPLENETWORK.PATCH, ISimpleNetworkPayload>;
     post: (tag: string, url: string, data: any, requestConfig?: AxiosRequestConfig) => IAction<SIMPLENETWORK.POST, ISimpleNetworkPayload>;
     put: (tag: string, url: string, data: any, requestConfig?: AxiosRequestConfig) => IAction<SIMPLENETWORK.PUT, ISimpleNetworkPayload>;
