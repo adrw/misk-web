@@ -20,9 +20,9 @@ tasks {
     tasks = listOf("example")
   }
 
-  example {
-    dependsOn(plugin)
-  }
+//  example {
+//    dependsOn(plugin)
+//  }
 
   val test by registering(GradleBuild::class) {
     dir = file("examples/gradle")

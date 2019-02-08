@@ -94,8 +94,8 @@
    * To remove these restrictions, you could set projectFolderMinDepth=1
    * and set projectFolderMaxDepth to a large number.
    */
-  // "projectFolderMinDepth": 2,
-  // "projectFolderMaxDepth": 2,
+  "projectFolderMinDepth": 1,
+  "projectFolderMaxDepth": 5,
 
   /**
    * This feature helps you to review and approve new packages before they are introduced
@@ -272,6 +272,47 @@
       "projectFolder": "tabs/palette-exemplar",
       "versionPolicyName": "MiskWebDemo"
     }
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-groovy/web/packages/palette",
+    //   "shouldPublish": false
+    // },
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-groovy/web/tabs/palette",
+    //   "shouldPublish": false
+    // },
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-groovy-test/web/packages/palette",
+    //   "shouldPublish": false
+    // },
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-groovy-test/web/tabs/palette",
+    //   "shouldPublish": false
+    // },
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-kotlin-dsl/web/packages/palette",
+    //   "shouldPublish": false
+    // },
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-kotlin-dsl/web/tabs/palette",
+    //   "shouldPublish": false
+    // },
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-kotlin-dsl-test/web/packages/palette",
+    //   "shouldPublish": false
+    // },
+    // {
+    //   "packageName": "misk-web-tab-palette",
+    //   "projectFolder": "gradle/misk-web-plugin-kotlin-dsl-test/web/tabs/palette",
+    //   "shouldPublish": false
+    // }
+
     // {
     //   /**
     //    * The NPM package name of the project (must match package.json)

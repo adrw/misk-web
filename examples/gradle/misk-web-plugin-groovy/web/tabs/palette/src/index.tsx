@@ -1,7 +1,5 @@
-import { createApp, createIndex } from "@misk/core"
-import * as Ducks from "./ducks"
-import routes from "./routes"
-export * from "./components"
-export * from "./containers"
+const foo = (bar: string) => {
+  console.log(bar)
+}
 
-createIndex("palette", createApp(routes), Ducks)
+foo("Congratulations, this is a running Typescript project!")

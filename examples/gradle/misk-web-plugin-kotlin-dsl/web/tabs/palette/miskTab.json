@@ -1,8 +1,8 @@
 {
-  "output_path": "lib/web/_tab/palette",
-  "port": "3150",
-  "version": "latest",
-  "zipOnBuild": true,
+  "output_path": "demo",
+  "port": "3149",
+  "version": "alpha",
+  "zipOnBuild": false,
   "name": "Palette",
   "relative_path_prefix": "_admin/",
   "slug": "palette"

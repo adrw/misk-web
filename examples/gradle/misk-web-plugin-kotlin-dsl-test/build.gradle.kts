@@ -1,3 +1,3 @@
 plugins {
-    id("misk-web-plugin") version "0.1.3"
+    id("com.squareup.misk-web-plugin") version "2019.02.07-b6607a9"
 }
