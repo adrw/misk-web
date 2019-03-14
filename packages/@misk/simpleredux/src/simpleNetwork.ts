@@ -300,7 +300,7 @@ function* handleBasicRequest(
       url,
       requestConfig
     )
-    yield put(dispatchSimpleNetwork.simpleNetworkSuccess(tag, url, { ...data }))
+    yield put(dispatchSimpleNetwork.simpleNetworkSuccess(tag, url, data))
   } catch (e) {
     const { tag, url } = getFirstTag<ISimpleNetworkPayloadTag>(action.payload)
     yield put(dispatchSimpleNetwork.simpleNetworkFailure(tag, url, { ...e }))
