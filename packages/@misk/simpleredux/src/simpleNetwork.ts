@@ -1,5 +1,13 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios"
-import { all, AllEffect, call, put, takeEvery } from "redux-saga/effects"
+import {
+  all,
+  AllEffect,
+  call,
+  ForkEffectDescriptor,
+  put,
+  SimpleEffect,
+  takeEvery
+} from "redux-saga/effects"
 import {
   createAction,
   defaultRootState,
@@ -426,7 +434,9 @@ function* handlePut(action: IAction<SIMPLENETWORK, ISimpleNetworkPayload>) {
   }
 }
 
-export function* watchSimpleNetworkSagas(): IterableIterator<AllEffect> {
+export function* watchSimpleNetworkSagas(): IterableIterator<
+  AllEffect<SimpleEffect<"FORK", ForkEffectDescriptor>>
+> {
   yield all([
     takeEvery(SIMPLENETWORK.DELETE, handleBasicRequest),
     takeEvery(SIMPLENETWORK.GET, handleBasicRequest),

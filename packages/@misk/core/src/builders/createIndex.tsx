@@ -1,3 +1,4 @@
+///<reference types="redux-saga" />
 ///<reference types="webpack-env" />
 import {
   routerMiddleware,
@@ -17,7 +18,7 @@ import {
   Reducer
 } from "redux"
 import createSagaMiddleware from "redux-saga"
-import { AllEffect } from "redux-saga/effects"
+import { AllEffect, ForkEffectDescriptor, SimpleEffect } from "redux-saga/effects"
 import { IWindow } from "../utilities"
 
 export const createIndex = (
@@ -30,7 +31,9 @@ export const createIndex = (
       { router: Reducer<RouterState, LocationChangeAction> } & any,
       AnyAction
     >
-    rootSaga: () => IterableIterator<AllEffect>
+    rootSaga: () => IterableIterator<
+    AllEffect<SimpleEffect<"FORK", ForkEffectDescriptor>>
+  >s
   }
 ) => {
   const Window = window as IWindow

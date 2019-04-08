@@ -20,7 +20,13 @@ import {
 } from "connected-react-router"
 import { History } from "history"
 import { AnyAction, combineReducers, Reducer } from "redux"
-import { all, AllEffect, fork } from "redux-saga/effects"
+import {
+  all,
+  AllEffect,
+  fork,
+  ForkEffectDescriptor,
+  SimpleEffect
+} from "redux-saga/effects"
 import {
   dispatchPalette,
   IDispatchPalette,
@@ -84,7 +90,9 @@ export const rootReducer = (history: History): Reducer<any, AnyAction> =>
 /**
  * Sagas
  */
-export function* rootSaga(): IterableIterator<AllEffect> {
+export function* rootSaga(): IterableIterator<
+  AllEffect<SimpleEffect<"FORK", ForkEffectDescriptor>>
+> {
   yield all([
     fork(watchPaletteSagas),
     fork(watchSimpleFormSagas),

@@ -5,7 +5,15 @@ import {
   defaultRootState
 } from "@misk/simpleredux"
 import axios from "axios"
-import { all, AllEffect, call, put, takeLatest } from "redux-saga/effects"
+import {
+  all,
+  AllEffect,
+  call,
+  ForkEffectDescriptor,
+  put,
+  SimpleEffect,
+  takeLatest
+} from "redux-saga/effects"
 
 /**
  * Actions
@@ -82,7 +90,9 @@ function* handleDinosaur() {
   }
 }
 
-export function* watchPaletteSagas(): IterableIterator<AllEffect> {
+export function* watchPaletteSagas(): IterableIterator<
+  AllEffect<SimpleEffect<"FORK", ForkEffectDescriptor>>
+> {
   yield all([takeLatest(PALETTE.DINOSAUR, handleDinosaur)])
 }
 

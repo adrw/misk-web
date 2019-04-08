@@ -1,4 +1,11 @@
-import { all, AllEffect, put, takeEvery } from "redux-saga/effects"
+import {
+  all,
+  AllEffect,
+  ForkEffectDescriptor,
+  put,
+  SimpleEffect,
+  takeEvery
+} from "redux-saga/effects"
 import {
   booleanToggle,
   createAction,
@@ -178,7 +185,9 @@ function* handleToggle(action: IAction<SIMPLEFORM, ISimpleFormPayload>) {
   }
 }
 
-export function* watchSimpleFormSagas(): IterableIterator<AllEffect> {
+export function* watchSimpleFormSagas(): IterableIterator<
+  AllEffect<SimpleEffect<"FORK", ForkEffectDescriptor>>
+> {
   yield all([
     takeEvery(SIMPLEFORM.INPUT, handleBasicRequest),
     takeEvery(SIMPLEFORM.NUMBER, handleBasicRequest),
