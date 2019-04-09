@@ -2,6 +2,7 @@ import { fromJS, List, Map } from "immutable"
 import escapeRegExp from "lodash/escapeRegExp"
 import filter from "lodash/filter"
 import flatMap from "lodash/flatMap"
+import get from "lodash/get"
 import isEmpty from "lodash/isEmpty"
 import isRegExp from "lodash/isRegExp"
 import createCachedSelector from "re-reselect"
@@ -108,30 +109,34 @@ export const selectSubState: <
   return state[domain]
 }
 
-export const selectRawSubState: <
-  IState extends Map<string, any>,
-  ISubState extends { [key: string]: any }
->(
-  domain: string
-) => (state: IState) => ISubState = <
-  IState extends Map<string, any>,
-  ISubState extends { [key: string]: any }
->(
-  domain: string
-) => (state: IState) => {
-  return state.get(domain)
-}
+// export const selectRawSubState: <
+//   IState extends Map<string, any>,
+//   ISubState extends { [key: string]: any }
+// >(
+//   domain: string
+// ) => (state: IState) => ISubState = <
+//   IState extends Map<string, any>,
+//   ISubState extends { [key: string]: any }
+// >(
+//   domain: string
+// ) => (state: IState) => {
+//   console.log("srss", state, domain, state.get(domain))
+//   return state.get(domain)
+// }
 
-const rawSubStateSelector: <IState extends Map<string, any>, ISubState>(
+const rawSubStateSelector: <
+  IState extends { [key: string]: ISubState },
+  ISubState
+>(
   domain: string
 ) => OutputSelector<IState, any, (res: ISubState) => any> = <
-  IState extends Map<string, any>,
+  IState extends { [key: string]: ISubState },
   ISubState
 >(
   domain: string
 ) =>
   createSelector(
-    selectRawSubState<IState, ISubState>(domain),
+    selectSubState<IState, ISubState>(domain),
     state => state
   )
 
@@ -159,7 +164,7 @@ const immutableSubStateSelector: <
  * Returns the raw stored object from Redux (in contrast to simpleRootSelector)
  */
 export const simpleRootRawSelector = <
-  IState extends Map<string, any>,
+  IState extends { [key: string]: ISubState },
   ISubState
 >(
   domain: string,
@@ -181,16 +186,28 @@ export const simpleRootSelector = <
   state: IState
 ) => immutableSubStateSelector<IState, ISubState>(domain)(state)
 
-const flatFilterObject = (object: any, filterFn: (key: any) => boolean) =>
+const flatFilterJSObject = (object: any, filterFn: (key: any) => boolean) =>
   flatMap(filter(Object.keys(object), filterFn), key => object[key])
+
+const flatFilterImmutableObject = (
+  object: Map<string, any>,
+  filterFn: (key: any) => boolean
+) => object.filter(filterFn)
+// flatMap(filter(Object.keys(object), filterFn), key => object[key])
+
+const flatFilterObject = (object: any, filterFn: (key: any) => boolean) => {
+  const jsResult = flatFilterJSObject(object, filterFn)
+  const immutableResult = flatFilterImmutableObject(object, filterFn)
+  return jsResult.length > immutableResult.size ? jsResult : immutableResult
+}
 
 const filterObject = (
   object: any,
   filterFn: string | ((key: any) => boolean)
 ) => {
-  let matched = []
-  let regMatched = []
-  let escRegMatched = []
+  let matched: any
+  let regMatched: any
+  let escRegMatched: any
   if (typeof filterFn === "string") {
     const escMatch = escapeRegExp(filterFn)
     if (isRegExp(filterFn)) {
@@ -203,6 +220,11 @@ const filterObject = (
     matched = flatFilterObject(object, key => key.startsWith(filterFn))
     if (matched.length < regMatched.length) matched = regMatched
     if (matched.length < escRegMatched.length) matched = escRegMatched
+  } else if (typeof filterFn === "object") {
+    /** Retrieve treating the passed in array as a object path */
+    matched = get(object, filterFn)
+  } else if (typeof filterFn === "function") {
+    matched = flatFilterObject(object, filterFn)
   } else {
     matched = flatFilterObject(object, filterFn)
   }
@@ -325,7 +347,7 @@ const selectAndFilterState: <
  * - If subState doesn't have simpleTag, then optional argument subStateSelector is looked for
  */
 export const simpleSelect = <
-  IState extends { [key: string]: ISubState | any },
+  IState extends { [key: string]: ISubState | any } & Map<string, any>,
   ISubState extends { [key: string]: any },
   ISubPayload extends { [key: string]: any }
 >(
@@ -348,9 +370,16 @@ export const simpleSelect = <
     }
   } else if (subState.simpleTag) {
     selector = selectSubState<IState, ISubState>(subState.simpleTag)
+  } else if (subState.get("simpleTag")) {
+    console.log("ss", subState.get("simpleTag"), subState)
+    selector = selectSubState<IState, ISubState>(subState.get("simpleTag"))
   } else {
     throw new Error(
-      "@misk/simpleRedux:simpleSelect No subStateSelector could be determined from subState.simpleTag or from subStateSelector argument. Check documentation for approved ways to call simpleSelect."
+      `@misk/simpleRedux:simpleSelect No subStateSelector could be determined from subState.simpleTag, subState.get("simpleTag"), or from subStateSelector argument. Check documentation for approved ways to call simpleSelect. \n(subState: ${JSON.stringify(
+        subState
+      )}) \n(subState (toJS): ${JSON.stringify(
+        subState.toJS()
+      )}) (tagFilter: ${tagFilter}) (tagKeysFilter: ${tagKeysFilter}) (returnType: ${returnType}) (subStateSelector: ${subStateSelector})`
     )
   }
   return selectAndFilterState<ISubState, ISubPayload>(
