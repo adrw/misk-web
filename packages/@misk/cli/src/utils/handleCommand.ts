@@ -7,7 +7,8 @@ const { version: packageVersion } = require("root-require")("package.json")
 import {
   packageVersionExistsOnNPM,
   logDebug as formattedLog,
-  execute
+  execute,
+  logFormatter
 } from "../utils"
 import { PackageVersionStatus } from "./resolveNpmVersion"
 
@@ -75,41 +76,46 @@ export const handleCommand = async (
       invalidOptions.push(opt)
     }
   })
-  if (invalidOptions.length > 0) {
-    console.error(
-      `Invalid use of ${invalidOptions.map(
-        opt => `-${opt} `
-      )} option with command ${args._[0]}.`
-    )
-    yargs
-      .hide(invalidOptions[0])
-      .hide("help")
-      .hide("version")
-      .showHelp()
-  } else if (args.each) {
-    const bar = new ProgressBar(`[EACH][:bar]`, {
-      complete: "=",
-      incomplete: " ",
-      width: 80,
-      total: 10
-    })
-    const tabs: string[] = []
-    klaw(".", { filter: filterFunc })
-      .on("data", (item: any) => {
-        if (item.stats.isFile() && item.path.includes("/miskTab.json")) {
-          if (tabs.length < 10) bar.tick(1)
-          tabs.push(item.path.split("/miskTab.json")[0])
-        }
+  try {
+    if (invalidOptions.length > 0) {
+      console.error(
+        `Invalid use of ${invalidOptions.map(
+          opt => `-${opt} `
+        )} option with command ${args._[0]}.`
+      )
+      yargs
+        .hide(invalidOptions[0])
+        .hide("help")
+        .hide("version")
+        .showHelp()
+    } else if (args.each) {
+      const bar = new ProgressBar(`[EACH][:bar]`, {
+        complete: "=",
+        incomplete: " ",
+        width: 80,
+        total: 10
       })
-      .on("error", (err: Error) => console.error(err))
-      .on("end", async () => {
-        bar.tick(10 - tabs.length)
-        for (const tab in tabs) {
-          cd(tabs[tab])
-          handlerFn({ ...args, dir: tabs[tab] })
-        }
-      })
-  } else {
-    handlerFn(args)
+      const tabs: string[] = []
+      klaw(".", { filter: filterFunc })
+        .on("data", (item: any) => {
+          if (item.stats.isFile() && item.path.includes("/miskTab.json")) {
+            if (tabs.length < 10) bar.tick(1)
+            tabs.push(item.path.split("/miskTab.json")[0])
+          }
+        })
+        .on("error", (err: Error) => console.error(err))
+        .on("end", async () => {
+          bar.tick(10 - tabs.length)
+          for (const tab in tabs) {
+            cd(tabs[tab])
+            handlerFn({ ...args, dir: tabs[tab] })
+          }
+        })
+    } else {
+      handlerFn(args)
+    }
+  } catch (e) {
+    console.log(logFormatter("Fatal", `Error encountered: ${e}`))
+    process.exit(1)
   }
 }

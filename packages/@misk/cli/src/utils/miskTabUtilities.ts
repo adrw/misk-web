@@ -44,17 +44,17 @@ export const defaultMiskTabJson = async (
 })
 
 export const readMiskTabJson = (dir: string): IMiskTabJSON => {
-  try {
+  if (fs.existsSync(makePath(dir, Files.miskTab))) {
     return fs.readJSONSync(makePath(dir, Files.miskTab))
-  } catch (e) {
-    console.log(
-      `[FATAL] Failed to read ${dir}/${
-        Files.miskTab
-      }. Try this command in a tab directory.\n\n`,
-      e
-    )
-    return process.exit()
   }
+  logDebug(
+    "Fatal",
+    `Failed to read ${dir}/${
+      Files.miskTab
+    }. Try this command in a tab directory or use [-e] option to let miskweb search for tabs in downstream directories.`,
+    dir
+  )
+  return process.exit(1)
 }
 
 export const generateMiskTabJson = async (
@@ -103,12 +103,10 @@ export const migrateBuildFiles = (...args: any) => {
   }
   if (pkgMiskTab && fs.existsSync(makePath(dir, Files.miskTab))) {
     // miskTab.json and package with miskTab exists
-    throw Error(
-      logFormatter(
-        tag,
-        `Automatic migration failed. miskweb doesn't know whether to use miskTab.json or the miskTab block in package.json. You must remove the miskTab.json file OR remove the miskTab block from package.json.`,
-        dir
-      )
+    logDebug(
+      tag,
+      `Automatic migration failed. miskweb doesn't know whether to use miskTab.json or the miskTab block in package.json. You must remove the miskTab.json file OR remove the miskTab block from package.json.`,
+      dir
     )
   } else if (!pkgMiskTab && fs.existsSync(makePath(dir, Files.miskTab))) {
     // miskTab.json exists. Rewrite out with alphabetically sorted and up to date set of keys.
@@ -130,12 +128,10 @@ export const migrateBuildFiles = (...args: any) => {
     remove(makePath(dir, Files.packageLock))
     remove(makePath(dir, Files.yarnLock))
   } else if (!pkgMiskTab && !fs.existsSync(makePath(dir, Files.miskTab))) {
-    throw Error(
-      logFormatter(
-        tag,
-        `No miskTab.json present and no miskTab block in existing package.json. miskweb CLI build file generation will not be attempted.`,
-        dir
-      )
+    logDebug(
+      tag,
+      `No miskTab.json present and no miskTab block in existing package.json. miskweb CLI build file generation will not be attempted.`,
+      dir
     )
   }
 }
