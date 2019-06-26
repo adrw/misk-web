@@ -55,7 +55,7 @@
     "react-testing-library": "6.1.2",
     "ts-jest": "24.0.2",
     "@misk/tslint": "0.1.5",
-    "@types/fs-extra": "7.0.0",
+    "@types/fs-extra": "8.0.0",
     "@types/klaw": "3.0.0",
     "@types/lodash": "4.14.134",
     "@types/node": "11.13.1",
