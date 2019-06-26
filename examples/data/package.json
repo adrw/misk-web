@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@misk/dev": "0.1.5",
-    "@types/fs-extra": "7.0.0",
+    "@types/fs-extra": "8.0.0",
     "@misk/tslint": "0.1.5",
     "@types/node": "10.12.18",
     "@types/prop-types": "15.7.1",
