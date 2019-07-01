@@ -33,7 +33,7 @@
     "test": "echo no tests"
   },
   "dependencies": {
-    "@blueprintjs/core": "3.16.2",
+    "@blueprintjs/core": "3.17.1",
     "@blueprintjs/datetime": "3.10.1",
     "@blueprintjs/icons": "3.9.0",
     "@blueprintjs/select": "3.9.0",
