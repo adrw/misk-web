@@ -41,7 +41,7 @@
     "react-router": "5.0.1",
     "react-router-dom": "5.0.1",
     "react-transition-group": "4.2.1",
-    "redux": "4.0.1",
+    "redux": "4.0.2",
     "redux-saga": "0.16.2",
     "reselect": "4.0.0",
     "re-reselect": "3.3.0",
