@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@misk/dev": "0.1.5",
-    "@misk/test": "0.1.5",
+    "@misk/test": "0.1.10",
     "jest-emotion": "10.0.14",
     "@misk/tslint": "0.1.5",
     "@types/history": "4.7.2",
