@@ -15,7 +15,7 @@
     "prepare": "npm run-script build"
   },
   "dependencies": {
-    "@misk/core": "0.1.8",
+    "@misk/core": "0.1.9",
     "fs-extra": "8.1.0"
   },
   "devDependencies": {
