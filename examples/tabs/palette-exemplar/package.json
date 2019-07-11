@@ -55,7 +55,7 @@
     "@misk/dev": "0.1.5",
     "@misk/test": "0.1.5",
     "jest-emotion": "10.0.14",
-    "@misk/tslint": "0.1.5",
+    "@misk/tslint": "0.1.10",
     "@types/history": "4.7.2",
     "@types/jest": "24.0.15",
     "@types/node": "11.13.1",

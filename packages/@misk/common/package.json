@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@misk/dev": "0.1.5",
-    "@misk/tslint": "0.1.5",
+    "@misk/tslint": "0.1.10",
     "@types/history": "4.7.2",
     "@types/lodash": "4.14.136",
     "@types/node": "11.13.1",
