@@ -44,7 +44,7 @@
     "shelljs": "0.8.3",
     "tslib": "1.10.0",
     "typescript": "3.5.2",
-    "yargs": "13.2.4"
+    "yargs": "13.3.0"
   },
   "devDependencies": {
     "@misk/dev": "0.1.10",
