@@ -4,7 +4,7 @@ import filter from "lodash/filter"
 import flatMap from "lodash/flatMap"
 import isEmpty from "lodash/isEmpty"
 import isRegExp from "lodash/isRegExp"
-import { ForkEffectDescriptor, SimpleEffect } from "redux-saga/effects"
+import { AllEffect, ForkEffect } from "redux-saga/effects"
 import createCachedSelector from "re-reselect"
 import { createSelector, OutputSelector, ParametricSelector } from "reselect"
 import { StatusCode } from "status-code-enum"
@@ -22,9 +22,7 @@ export interface CombinatorEffect<T, E> {
 
 export type CombinatorEffectDescriptor<E> = { [key: string]: E } | E[]
 
-export type SimpleReduxSaga = IterableIterator<
-  CombinatorEffect<"ALL", SimpleEffect<"FORK", ForkEffectDescriptor>>
->
+export type SimpleReduxSaga = IterableIterator<AllEffect<ForkEffect>>
 
 /**
  * Default State with Redux flow metadata wrapped in an Immutable JS object for more efficient use in Reducers
@@ -43,7 +41,7 @@ export interface IRootState {
   simpleTag: string
 }
 
-export interface IDefaultRootState extends IDefaultState, IRootState {}
+export interface IDefaultRootState extends IDefaultState, IRootState { }
 
 /**
  * Initializes new default state with initial Redux metadata state
@@ -100,7 +98,7 @@ export const errorMessage = (error: any) => {
   if (!code) {
     code =
       error.response &&
-      error.response.status === StatusCode.ClientErrorUnauthorized
+        error.response.status === StatusCode.ClientErrorUnauthorized
         ? "Unauthorized"
         : "InternalServerError"
   }
@@ -115,7 +113,7 @@ export const errorMessage = (error: any) => {
 export const selectSubState: <
   IState extends { [key: string]: ISubState },
   ISubState extends { [key: string]: any }
->(
+  >(
   domain: string
 ) => (state: IState) => ISubState = <
   IState extends { [key: string]: ISubState },
@@ -129,7 +127,7 @@ export const selectSubState: <
 export const selectRawSubState: <
   IState extends Map<string, any>,
   ISubState extends { [key: string]: any }
->(
+  >(
   domain: string
 ) => (state: IState) => ISubState = <
   IState extends Map<string, any>,
@@ -148,15 +146,15 @@ const rawSubStateSelector: <IState extends Map<string, any>, ISubState>(
 >(
   domain: string
 ) =>
-  createSelector(
-    selectRawSubState<IState, ISubState>(domain),
-    state => state
-  )
+    createSelector(
+      selectRawSubState<IState, ISubState>(domain),
+      state => state
+    )
 
 const immutableSubStateSelector: <
   IState extends { [key: string]: ISubState & any },
   ISubState extends { toJS: () => IRootState }
->(
+  >(
   domain: string
 ) => OutputSelector<IState, any, (res: ISubState) => any> = <
   IState extends { [key: string]: ISubState },
@@ -164,10 +162,10 @@ const immutableSubStateSelector: <
 >(
   domain: string
 ) =>
-  createSelector(
-    selectSubState<IState, ISubState>(domain),
-    state => state.toJS()
-  )
+    createSelector(
+      selectSubState<IState, ISubState>(domain),
+      state => state.toJS()
+    )
 
 /**
  * simpleRootRawSelector is a Redux selector of a subState based on a domain string
@@ -264,7 +262,7 @@ const flatResults = (results: object[], returnType: simpleType) => {
 const selectAndFilterState: <
   ISubState extends { [key: string]: any },
   ISubPayload extends { [key: string]: any }
->(
+  >(
   subStateSelector: (state: any) => ISubState,
   tagKeysFilter?: string | ((key: any) => boolean),
   returnType?: simpleType
@@ -280,24 +278,24 @@ const selectAndFilterState: <
   tagKeysFilter: string | ((key: any) => boolean) = "",
   returnType?: simpleType
 ) =>
-  createCachedSelector(
-    subStateSelector,
-    (subState: ISubState, tagFilter: string) => {
-      let tagFiltered = filterObject(subState, tagFilter)
-      if (!isEmpty(tagKeysFilter)) {
-        if (isEmpty(tagFiltered)) {
-          return baseType(returnType)
+    createCachedSelector(
+      subStateSelector,
+      (subState: ISubState, tagFilter: string) => {
+        let tagFiltered = filterObject(subState, tagFilter)
+        if (!isEmpty(tagKeysFilter)) {
+          if (isEmpty(tagFiltered)) {
+            return baseType(returnType)
+          }
+          tagFiltered = flatMap(tagFiltered, obj =>
+            flatResults(filterObject(obj, tagKeysFilter), returnType)
+          )
         }
-        tagFiltered = flatMap(tagFiltered, obj =>
-          flatResults(filterObject(obj, tagKeysFilter), returnType)
-        )
-      }
-      return isEmpty(tagFiltered)
-        ? defaultState
-        : flatResults(tagFiltered, returnType)
-    },
-    (state: ISubState, matched: ISubPayload[]) => matched
-  )((state, match) => match)
+        return isEmpty(tagFiltered)
+          ? defaultState
+          : flatResults(tagFiltered, returnType)
+      },
+      (state: ISubState, matched: ISubPayload[]) => matched
+    )((state, match) => match)
 
 /**
  *
