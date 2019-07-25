@@ -1,4 +1,4 @@
-import { all, put, takeLatest, throttle } from "redux-saga/effects"
+import { all, debounce, put, takeLatest } from "redux-saga/effects"
 import {
   booleanToggle,
   createAction,
@@ -23,7 +23,8 @@ export enum SIMPLEFORM {
   FAILURE = "SIMPLEFORM_FAILURE",
   NUMBER = "SIMPLEFORM_NUMBER",
   SUCCESS = "SIMPLEFORM_SUCCESS",
-  TOGGLE = "SIMPLEFORM_TOGGLE"
+  TOGGLE = "SIMPLEFORM_TOGGLE",
+  TYPING = "SIMPLEFORM_TYPING"
 }
 
 /**
@@ -64,6 +65,10 @@ export interface IDispatchSimpleForm {
     tag: string,
     oldState: any
   ) => IAction<SIMPLEFORM.TOGGLE, ISimpleFormPayload>
+  simpleFormTyping: (
+    tag: string,
+    oldState: any
+  ) => IAction<SIMPLEFORM.TYPING, ISimpleFormPayload>
 }
 
 export const dispatchSimpleForm: IDispatchSimpleForm = {
@@ -120,7 +125,17 @@ export const dispatchSimpleForm: IDispatchSimpleForm = {
         success: false,
         tag
       }
-    })
+    }),
+  simpleFormTyping: (tag: string, data: any) =>
+    createAction<SIMPLEFORM.TYPING, ISimpleFormPayload>(SIMPLEFORM.TYPING, {
+      [tag]: {
+        data,
+        error: null,
+        loading: true,
+        success: false,
+        tag
+      }
+    }),
 }
 
 /**
@@ -182,23 +197,16 @@ function* handleToggle(action: IAction<SIMPLEFORM, ISimpleFormPayload>) {
 /**
  * Add automatic throttling of events to preserve typing latency in form fields
  */
-function* watchInput() {
-  yield throttle(500, SIMPLEFORM.INPUT, handleBasicRequest)
-}
-
-function* watchNumber() {
-  yield throttle(500, SIMPLEFORM.NUMBER, handleBasicRequest)
-}
-
-function* watchToggle() {
-  yield throttle(500, SIMPLEFORM.TOGGLE, handleToggle)
+function* watchTyping() {
+  yield debounce(500, SIMPLEFORM.TYPING, handleBasicRequest)
 }
 
 export function* watchSimpleFormSagas(): SimpleReduxSaga {
   yield all([
-    takeLatest(SIMPLEFORM.INPUT, watchInput),
-    takeLatest(SIMPLEFORM.NUMBER, watchNumber),
-    takeLatest(SIMPLEFORM.TOGGLE, watchToggle)
+    takeLatest(SIMPLEFORM.INPUT, handleBasicRequest),
+    takeLatest(SIMPLEFORM.NUMBER, handleBasicRequest),
+    takeLatest(SIMPLEFORM.TOGGLE, handleToggle),
+    takeLatest(SIMPLEFORM.TYPING, watchTyping),
   ])
 }
 
@@ -222,6 +230,7 @@ export function SimpleFormReducer(
     case SIMPLEFORM.NUMBER:
     case SIMPLEFORM.SUCCESS:
     case SIMPLEFORM.TOGGLE:
+    case SIMPLEFORM.TYPING:
       return state.merge(action.payload)
     default:
       return state
