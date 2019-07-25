@@ -1920,8 +1920,8 @@ packages:
   /browserslist/4.6.6:
     dependencies:
       caniuse-lite: 1.0.30000985
-      electron-to-chromium: 1.3.199
-      node-releases: 1.1.25
+      electron-to-chromium: 1.3.200
+      node-releases: 1.1.26
     dev: false
     hasBin: true
     resolution:
@@ -3164,10 +3164,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-PcW2a0tyTuPHz3tWyYqtK6r1fZ3gp+3Sop8Ph+ZYN81Ob5rwmbHEzaqs10N3BEsaGTkh/ooniXK+WwszGlc2+Q==
-  /electron-to-chromium/1.3.199:
+  /electron-to-chromium/1.3.200:
     dev: false
     resolution:
-      integrity: sha512-gachlDdHSK47s0N2e58GH9HMC6Z4ip0SfmYUa5iEbE50AKaOUXysaJnXMfKj0xB245jWbYcyFSH+th3rqsF8hA==
+      integrity: sha512-PUurrpyDA74MuAjJRD+79ss5BqJlU3mdArRbuu4wO/dt6jc3Ic/6BDmFJxkdwbfq39cHf/XKm2vW98XSvut9Dg==
   /elliptic/6.5.0:
     dependencies:
       bn.js: 4.11.8
@@ -4817,7 +4817,7 @@ packages:
       '@babel/traverse': 7.5.5
       '@babel/types': 7.5.5
       istanbul-lib-coverage: 2.0.5
-      semver: 6.2.0
+      semver: 6.3.0
     dev: false
     engines:
       node: '>=6'
@@ -6014,12 +6014,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-SUDEb+o71XR5lXSTyivXd9J7fCloE3SyP4lSgt3lU2oSANiox+SxlNRGPjDKrwU1YN3ix2KN/VGGCg0t01rttQ==
-  /node-releases/1.1.25:
+  /node-releases/1.1.26:
     dependencies:
       semver: 5.7.0
     dev: false
     resolution:
-      integrity: sha512-fI5BXuk83lKEoZDdH3gRhtsNgh05/wZacuXkgbiYkceE7+QIMXOg98n9ZV7mz27B+kFHnqHcUpscZZlGRSmTpQ==
+      integrity: sha512-fZPsuhhUHMTlfkhDLGtfY80DSJTjOcx+qD1j5pqPkuhUHVS7xHZIg9EE4DHK8O3f0zTxXHX5VIkDG8pu98/wfQ==
   /normalize-package-data/2.5.0:
     dependencies:
       hosted-git-info: 2.7.1
@@ -7929,11 +7929,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-0UewU+9rFapKFnlbirLi3byoOuhrSsli/z/ihNnvM24vgF+8sNBiI1LZPBSH9wJKUwaUbw+s3hToDLCXkrghrQ==
-  /semver/6.2.0:
+  /semver/6.3.0:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-jdFC1VdUGT/2Scgbimf7FSx9iJLXoqfglSF+gJeuNWVpiE37OIbc1jywR/GJyFdz3mnkz2/id0L0J/cr0izR5A==
+      integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
   /send/0.17.1:
     dependencies:
       debug: 2.6.9
@@ -8817,7 +8817,7 @@ packages:
       enhanced-resolve: 4.1.0
       loader-utils: 1.2.3
       micromatch: 4.0.2
-      semver: 6.2.0
+      semver: 6.3.0
     dev: false
     engines:
       node: '>=8.6'
@@ -8831,7 +8831,7 @@ packages:
       enhanced-resolve: 4.1.0
       loader-utils: 1.2.3
       micromatch: 4.0.2
-      semver: 6.2.0
+      semver: 6.3.0
       typescript: 3.5.2
     dev: false
     engines:
@@ -9553,7 +9553,7 @@ packages:
       portfinder: 1.0.21
       schema-utils: 1.0.0
       selfsigned: 1.10.4
-      semver: 6.2.0
+      semver: 6.3.0
       serve-index: 1.9.1
       sockjs: 0.3.19
       sockjs-client: 1.3.0
@@ -9594,7 +9594,7 @@ packages:
       portfinder: 1.0.21
       schema-utils: 1.0.0
       selfsigned: 1.10.4
-      semver: 6.2.0
+      semver: 6.3.0
       serve-index: 1.9.1
       sockjs: 0.3.19
       sockjs-client: 1.3.0

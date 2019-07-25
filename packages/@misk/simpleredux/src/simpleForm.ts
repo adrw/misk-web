@@ -1,4 +1,4 @@
-import { all, put, takeLatest } from "redux-saga/effects"
+import { all, put, takeLatest, throttle } from "redux-saga/effects"
 import {
   booleanToggle,
   createAction,
@@ -179,11 +179,26 @@ function* handleToggle(action: IAction<SIMPLEFORM, ISimpleFormPayload>) {
   }
 }
 
+/**
+ * Add automatic throttling of events to preserve typing latency in form fields
+ */
+function* watchInput() {
+  yield throttle(500, SIMPLEFORM.INPUT, handleBasicRequest)
+}
+
+function* watchNumber() {
+  yield throttle(500, SIMPLEFORM.NUMBER, handleBasicRequest)
+}
+
+function* watchToggle() {
+  yield throttle(500, SIMPLEFORM.TOGGLE, handleToggle)
+}
+
 export function* watchSimpleFormSagas(): SimpleReduxSaga {
   yield all([
-    takeLatest(SIMPLEFORM.INPUT, handleBasicRequest),
-    takeLatest(SIMPLEFORM.NUMBER, handleBasicRequest),
-    takeLatest(SIMPLEFORM.TOGGLE, handleToggle)
+    takeLatest(SIMPLEFORM.INPUT, watchInput),
+    takeLatest(SIMPLEFORM.NUMBER, watchNumber),
+    takeLatest(SIMPLEFORM.TOGGLE, watchToggle)
   ])
 }
 

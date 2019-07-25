@@ -47,8 +47,8 @@ export interface IState {
  */
 export interface IDispatchProps
   extends IDispatchSimpleForm,
-  IDispatchSimpleNetwork,
-  IDispatchPalette { }
+    IDispatchSimpleNetwork,
+    IDispatchPalette {}
 
 export const rootDispatcher: IDispatchProps = {
   ...dispatchSimpleForm,
