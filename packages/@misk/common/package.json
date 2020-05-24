@@ -38,7 +38,7 @@
     "@blueprintjs/icons": "3.13.0",
     "@blueprintjs/select": "3.11.2",
     "@blueprintjs/table": "3.8.7",
-    "@blueprintjs/timezone": "3.6.3",
+    "@blueprintjs/timezone": "3.6.5",
     "@emotion/core": "10.0.22",
     "@emotion/styled": "10.0.23",
     "@redux-saga/core": "1.1.3",
