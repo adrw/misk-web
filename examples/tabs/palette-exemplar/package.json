@@ -61,7 +61,7 @@
     "@misk/tslint": "0.1.26-3",
     "@testing-library/dom": "7.5.7",
     "@testing-library/react": "9.1.1",
-    "@types/history": "4.7.5",
+    "@types/history": "4.7.6",
     "@types/jest": "25.2.3",
     "@types/lodash": "4.14.151",
     "@types/node": "11.13.1",
