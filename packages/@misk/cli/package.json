@@ -42,7 +42,7 @@
     "prettier": "1.19.1",
     "progress": "2.0.3",
     "root-require": "0.3.1",
-    "shelljs": "0.8.3",
+    "shelljs": "0.8.4",
     "tslib": "1.11.1",
     "typescript": "3.5.3",
     "yargs": "15.4.0"
@@ -57,7 +57,7 @@
     "@types/klaw": "3.0.1",
     "@types/lodash": "4.14.155",
     "@types/node": "11.13.1",
-    "@types/shelljs": "0.8.7",
+    "@types/shelljs": "0.8.8",
     "@types/yargs": "15.0.5",
     "jest": "24.9.0",
     "jest-emotion": "10.0.14",
