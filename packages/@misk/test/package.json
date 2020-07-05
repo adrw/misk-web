@@ -16,7 +16,7 @@
     "prepare": "npm run-script ci-build"
   },
   "dependencies": {
-    "@testing-library/dom": "7.16.2",
+    "@testing-library/dom": "7.20.0",
     "@testing-library/react": "10.3.0",
     "@types/jest": "25.2.3",
     "@types/node": "11.13.1",
