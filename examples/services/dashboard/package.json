@@ -57,7 +57,7 @@
     "@misk/prettier": "0.1.26-3",
     "@misk/test": "0.1.26-3",
     "@misk/tslint": "0.1.26-3",
-    "@testing-library/dom": "7.20.0",
+    "@testing-library/dom": "7.22.0",
     "@testing-library/react": "10.4.7",
     "@types/history": "4.7.6",
     "@types/jest": "26.0.3",
