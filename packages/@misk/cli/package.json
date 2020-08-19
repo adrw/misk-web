@@ -48,7 +48,7 @@
     "yargs": "15.4.1"
   },
   "devDependencies": {
-    "@misk/dev": "0.1.26-3",
+    "@misk/dev": "0.1.26",
     "@misk/tslint": "0.1.26-3",
     "@testing-library/dom": "7.22.2",
     "@testing-library/react": "10.4.8",

@@ -67,7 +67,7 @@
     "status-code-enum": "1.0.0"
   },
   "devDependencies": {
-    "@misk/dev": "0.1.26-3",
+    "@misk/dev": "0.1.26",
     "@misk/prettier": "0.1.26-3",
     "@misk/test": "0.1.26-3",
     "@misk/tslint": "0.1.26-3",

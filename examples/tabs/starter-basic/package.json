@@ -54,7 +54,7 @@
     "styled-components": "4.4.1"
   },
   "devDependencies": {
-    "@misk/dev": "0.1.26-2",
+    "@misk/dev": "0.1.26",
     "@misk/prettier": "0.1.26-2",
     "@misk/test": "0.1.26-2",
     "jest-emotion": "10.0.14",
