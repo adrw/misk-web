@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@misk/dev": "0.1.26-3",
-    "@misk/prettier": "0.1.26-3",
+    "@misk/prettier": "0.1.26",
     "@misk/tslint": "0.1.26-3",
     "@types/history": "4.7.7",
     "@types/lodash": "4.14.159",

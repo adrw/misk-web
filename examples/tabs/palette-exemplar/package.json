@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@misk/dev": "0.1.26-3",
-    "@misk/prettier": "0.1.26-3",
+    "@misk/prettier": "0.1.26",
     "@misk/test": "0.1.26-3",
     "jest-emotion": "10.0.14",
     "@misk/tslint": "0.1.26-3",

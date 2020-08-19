@@ -31,7 +31,7 @@
     "test": "jest --passWithNoTests  --maxWorkers=2"
   },
   "dependencies": {
-    "@misk/prettier": "0.1.26-3",
+    "@misk/prettier": "0.1.26",
     "@misk/test": "0.1.26-3",
     "axios": "0.19.2",
     "dayjs": "1.8.33",
