@@ -28,7 +28,7 @@
     "@blueprintjs/select": "3.13.7",
     "@blueprintjs/table": "3.8.13",
     "@blueprintjs/timezone": "3.6.11",
-    "@emotion/core": "10.0.22",
+    "@emotion/core": "10.0.35",
     "axios": "0.20.0",
     "connected-react-router": "6.6.1",
     "dayjs": "1.8.34",
