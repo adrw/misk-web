@@ -82,7 +82,7 @@
     "html-parser": "0.11.0",
     "html-webpack-harddisk-plugin": "1.0.2",
     "html-webpack-plugin": "4.3.0",
-    "jest": "24.9.0",
+    "jest": "27.0.5",
     "jest-serializer-html": "7.0.0",
     "mini-css-extract-plugin": "0.10.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
